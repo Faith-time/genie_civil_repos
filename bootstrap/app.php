@@ -13,7 +13,8 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        // Alias des middlewares
+        $middleware->trustProxies(at: '*');
+
         $middleware->alias([
             // JWT pour API uniquement
             'jwt.auth' => JwtMiddleware::class,
