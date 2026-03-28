@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{ClientProjectController,
+use App\Http\Controllers\{AboutController,
+    ClientProjectController,
     ContactController,
     HomeController,
     AuthController,
@@ -39,6 +40,7 @@ Route::get('/portfolio/{folder}', [RealisationController::class, 'showFolder'])-
 // Testimonials (public listing)
 Route::get('/testimonials', [TestimonialController::class, 'index'])->name('testimonials.index');
 
+Route::get('/about', [AboutController::class, 'index'])->name('about');
 // CV Download
 Route::get('/cv/download', [SiteSettingController::class, 'downloadCv'])->name('cv.download');
 

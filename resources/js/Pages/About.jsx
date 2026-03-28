@@ -826,8 +826,14 @@ const ABOUT_STYLES = `
 }
 `;
 
-export default function About() {
+export default function About({ stats = {} }) {
     const { auth } = usePage().props;
+
+    // Stats dynamiques avec fallbacks
+    const projectsCount     = stats.projectsCount     ?? 0;
+    const testimonialsCount = stats.testimonialsCount  ?? 0;
+    const satisfactionRate  = stats.satisfactionRate   ?? 0;
+    const avgRating         = stats.avgRating ? Number(stats.avgRating).toFixed(1) : '—';
     const isAdmin = auth?.user?.roles?.some(r => (r?.name ?? r) === 'admin');
     const revealRefs = useRef([]);
 
@@ -1012,13 +1018,14 @@ export default function About() {
             </section>
 
             {/* ── STATS ── */}
+            {/* ── STATS ── */}
             <section className="about-stats">
                 <div className="about-stats-inner" ref={addReveal(0)}>
                     {[
-                        { num: '40+', label: 'Projets réalisés' },
-                        { num: '12+', label: 'Clients satisfaits' },
-                        { num: '98%', label: 'Taux de satisfaction' },
-                        { num: '5+', label: "Années d'expertise" },
+                        { num: `${projectsCount}+`,     label: 'Projets réalisés' },
+                        { num: `${testimonialsCount}+`, label: 'Clients satisfaits' },
+                        { num: `${satisfactionRate}%`,  label: 'Taux de satisfaction' },
+                        { num: '5+',                    label: "Années d'expertise" },
                     ].map((s, i) => (
                         <div key={i} className="about-stat">
                             <span className="about-stat-num">{s.num}</span>
@@ -1027,7 +1034,6 @@ export default function About() {
                     ))}
                 </div>
             </section>
-
             {/* ── MAIN ── */}
             <section className="about-main">
                 <div className="about-main-inner">
